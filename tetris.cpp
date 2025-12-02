@@ -123,6 +123,10 @@ void removeLine() {
         if (j == W - 1) {
             for (int ii = i; ii > 0; ii--)
                 for (int j = 0; j < W - 1; j++) board[ii][j] = board[ii - 1][j];
+
+            // Tăng tốc sau khi xóa dòng
+            if (speed > 30) speed -= 10;
+
             i++;
             draw();
             _sleep(200);
