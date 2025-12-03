@@ -1,9 +1,12 @@
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
+#include <ctime>
 using namespace std;
 #define H 20
 #define W 15
+int speed = 200;
+
 char board[H][W] = {};
 char blocks[][4][4] = {
         {{' ','I',' ',' '},
@@ -137,7 +140,7 @@ int main()
         }
         block2Board();
         draw();
-        _sleep(200);
+        _sleep(speed);
     }
     return 0;
 }
