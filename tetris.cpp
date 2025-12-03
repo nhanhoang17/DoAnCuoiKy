@@ -5,6 +5,8 @@
 using namespace std;
 #define H 20
 #define W 15
+int speed = 200;
+
 char board[H][W] = {};
 char blocks[][4][4] = {
         {{' ','I',' ',' '},
