@@ -204,7 +204,8 @@ int main()
         draw();
         delay(200);
     }
-    
+    git commit -m "feat(ui): Hoàn thành chuyển đổi Console, thêm Vuông hóa & Border giả lập" -m "Khắc phục hiển thị console bị méo bằng cách sử dụng hai ký tự cho mỗi ô gạch, tạo ra ảo giác hình vuông (tỷ lệ 1:1). Đồng thời, cập nhật hàm draw() để sử dụng các ký tự khối Unicode cho khối gạch và ký tự mờ cho viền ngoài, giúp phân tách các ô rõ ràng hơn."
     closegraph();
     return 0;
 }
+
