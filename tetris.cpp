@@ -119,6 +119,7 @@ bool canMove(int dx, int dy) {
 void removeLine()
 {
     int j;
+    bool removed = false;  // Kiểm tra có xóa dòng hay không
 
     for (int i = H-2; i > 0 ; i-- )
     {
@@ -126,17 +127,22 @@ void removeLine()
             if (board[i][j] == ' ') break;
         if (j == W-1)
         {
+            removed = true;
+
             for (int ii = i; ii >0 ; ii-- )
                 for (int j = 0; j < W-1 ; j++ )
                     board[ii][j] = board[ii-1][j];
-
-            // Tăng tốc sau khi xóa dòng
-            if (speed > 30) speed -= 10;
 
             i++;
             draw();
             _sleep(200);
         }
+    }
+
+    // Tăng tốc nếu có xóa dòng
+    if (removed)
+    {
+        if (speed > 30) speed -= 20;
     }
 }
 
