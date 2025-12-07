@@ -5,6 +5,8 @@
 using namespace std;
 #define H 20
 #define W 15
+int speed = 200;
+
 char board[H][W] = {};
 char blocks[][4][4] = {
         {{' ','I',' ',' '},
@@ -125,6 +127,36 @@ bool canMove(int dx, int dy) {
     return true;
 }
 
+void removeLine()
+{
+    int j;
+    bool removed = false;  // Kiểm tra có xóa dòng hay không
+
+    for (int i = H-2; i > 0 ; i-- )
+    {
+        for (j = 0; j < W-1 ; j++)
+            if (board[i][j] == ' ') break;
+        if (j == W-1)
+        {
+            removed = true;
+
+            for (int ii = i; ii >0 ; ii-- )
+                for (int j = 0; j < W-1 ; j++ )
+                    board[ii][j] = board[ii-1][j];
+
+            i++;
+            draw();
+            _sleep(200);
+        }
+    }
+
+    // Tăng tốc nếu có xóa dòng
+    if (removed)
+    {
+        if (speed > 30) speed -= 20;
+    }
+}
+
 
 int main()
 {
@@ -149,7 +181,7 @@ int main()
         }
         block2Board();
         draw();
-        _sleep(200);
+        _sleep(speed);
     }
     return 0;
-            }
+}
