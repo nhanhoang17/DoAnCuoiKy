@@ -1,6 +1,7 @@
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
+#include <ctime>
 using namespace std;
 #define H 20
 #define W 15
@@ -96,10 +97,21 @@ void initBoard() {
             else board[i][j] = ' ';
 }
 void draw() {
-    gotoxy(0, 0);
-    for (int i = 0; i < H; i++, cout << endl)
-        for (int j = 0; j < W; j++)
-            cout << board[i][j];
+    gotoxy(0, 0); 
+    for (int i = 0; i < H; i++) {
+        for (int j = 0; j < W; j++) {
+            gotoxy(j * 2, i);
+                if (board[i][j] == '#') {
+                cout << (char)178 << (char)178;
+            }
+            else if (board[i][j] == ' ') {
+                cout << "  ";
+            }
+            else {
+                cout << "[]"; 
+            }
+        }
+    }
 }
 bool canMove(int dx, int dy) {
     for (int i = 0; i < 4; i++)
@@ -140,22 +152,4 @@ int main()
         _sleep(200);
     }
     return 0;
-void drawSquared() {
-    gotoxy(0, 0);
-    for (int i = 0; i < H; i++) {
-        for (int j = 0; j < W; j++) {
-            gotoxy(j * 2, i);
-            if (board[i][j] == '#') {
-                cout << (char)178 << (char)178;
             }
-            else if (board[i][j] == ' ') {
-                cout << "  ";
-            }
-            else {
-                cout << "[]";
-            }
-        }
-    }
-}
-        
-
