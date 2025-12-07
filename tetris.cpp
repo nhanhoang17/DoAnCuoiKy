@@ -140,4 +140,22 @@ int main()
         _sleep(200);
     }
     return 0;
+void drawSquared() {
+    gotoxy(0, 0);
+    for (int i = 0; i < H; i++) {
+        for (int j = 0; j < W; j++) {
+            gotoxy(j * 2, i);
+            if (board[i][j] == '#') {
+                cout << (char)178 << (char)178;
+            }
+            else if (board[i][j] == ' ') {
+                cout << "  ";
+            }
+            else {
+                cout << "[]";
+            }
+        }
+    }
+}
         
+
