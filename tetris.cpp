@@ -102,7 +102,6 @@ public:
         memcpy(shape, tmp, sizeof(shape));
     }
 };
-
 class JPiece : public Piece {
 public:
     JPiece() {
@@ -122,7 +121,6 @@ public:
         memcpy(shape, tmp, sizeof(shape));
     }
 };
-
 class SPiece : public Piece {
 public:
     SPiece() {
@@ -142,7 +140,6 @@ public:
         memcpy(shape, tmp, sizeof(shape));
     }
 };
-
 class ZPiece : public Piece {
 public:
     ZPiece() {
@@ -164,15 +161,26 @@ public:
 };
 
 Piece* currentPiece;
-int x = 5, y = 0;
 
+int x = 5, y = 0;
 void gotoxy(int x, int y) {
     COORD c;
     c.X = (SHORT)x;
     c.Y = (SHORT)y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
-
+void boardDelBlock() {
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            if (currentPiece->get(i, j) != ' ')
+                board[y + i][x + j] = ' ';
+}
+void block2Board() {
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            if (currentPiece->get(i, j) != ' ')
+                board[y + i][x + j] = currentPiece->get(i, j);
+}
 void initBoard() {
     for (int i = 0; i < H; i++)
         for (int j = 0; j < W; j++)
@@ -186,28 +194,19 @@ void draw() {
     gotoxy(0, 0);
     for (int i = 0; i < H; i++) {
         for (int j = 0; j < W; j++) {
-            if (board[i][j] == '#') cout << (char)178 << (char)178;
-            else if (board[i][j] == ' ') cout << "  ";
-            else cout << "[]";
+            gotoxy(j * 2, i);
+                if (board[i][j] == '#') {
+                cout << (char)178 << (char)178;
+            }
+            else if (board[i][j] == ' ') {
+                cout << "  ";
+            }
+            else {
+                cout << "[]";
+            }
         }
-        cout << endl;
     }
 }
-
-void boardDelBlock() {
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4; j++)
-            if (currentPiece->get(i, j) != ' ')
-                board[y + i][x + j] = ' ';
-}
-
-void block2Board() {
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4; j++)
-            if (currentPiece->get(i, j) != ' ')
-                board[y + i][x + j] = currentPiece->get(i, j);
-}
-
 bool canMove(int dx, int dy) {
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
@@ -220,31 +219,32 @@ bool canMove(int dx, int dy) {
     return true;
 }
 
-bool canRotate() {
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4; j++)
-            if (currentPiece->get(i, j) != ' ') {
-                int tx = x + j;
-                int ty = y + i;
-                if (tx < 1 || tx >= W - 1 || ty >= H - 1) return false;
-                if (board[ty][tx] != ' ') return false;
-            }
-    return true;
-}
+void removeLine()
+{
+    int j;
+    bool removed = false;  // Kiểm tra có xóa dòng hay không
 
-void newPiece() {
-    int r = rand() % 7;
-    if (r == 0) currentPiece = new IPiece();
-    if (r == 1) currentPiece = new OPiece();
-    if (r == 2) currentPiece = new TPiece();
-    if (r == 3) currentPiece = new LPiece();
-    if (r == 4) currentPiece = new JPiece();
-    if (r == 5) currentPiece = new SPiece();
-    if (r == 6) currentPiece = new ZPiece();
-    x = 5; y = 0;
-}
+    for (int i = H-2; i > 0 ; i-- )
+    {
+        for (j = 0; j < W-1 ; j++)
+            if (board[i][j] == ' ') break;
+        if (j == W-1)
+        {
+            removed = true;
 
-int main() {
+            for (int ii = i; ii >0 ; ii-- )
+                for (int j = 0; j < W-1 ; j++ )
+                    board[ii][j] = board[ii-1][j];
+
+            i++;
+            draw();
+            _sleep(200);
+        }
+        cout << endl;
+    }
+}
+int main()
+{
     srand(time(0));
     system("cls");
     initBoard();
@@ -272,8 +272,8 @@ int main() {
             y++;
         else {
             block2Board();
-            delete currentPiece;
-            newPiece();
+            removeLine();
+            x = 5; y = 0;
         }
 
         block2Board();
