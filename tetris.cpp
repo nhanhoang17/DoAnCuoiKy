@@ -83,7 +83,87 @@ public:
     }
 };
 
-Piece* currentPiece = NULL;
+class LPiece : public Piece {
+public:
+    LPiece() {
+        char tmp[4][4] = {
+            {' ',' ','L',' '},
+            {'L','L','L',' '},
+            {' ',' ',' ',' '},
+            {' ',' ',' ',' '}
+        };
+        memcpy(shape, tmp, sizeof(shape));
+    }
+    void rotate() override {
+        char tmp[4][4];
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                tmp[j][3 - i] = shape[i][j];
+        memcpy(shape, tmp, sizeof(shape));
+    }
+};
+
+class JPiece : public Piece {
+public:
+    JPiece() {
+        char tmp[4][4] = {
+            {'J',' ',' ',' '},
+            {'J','J','J',' '},
+            {' ',' ',' ',' '},
+            {' ',' ',' ',' '}
+        };
+        memcpy(shape, tmp, sizeof(shape));
+    }
+    void rotate() override {
+        char tmp[4][4];
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                tmp[j][3 - i] = shape[i][j];
+        memcpy(shape, tmp, sizeof(shape));
+    }
+};
+
+class SPiece : public Piece {
+public:
+    SPiece() {
+        char tmp[4][4] = {
+            {' ','S','S',' '},
+            {'S','S',' ',' '},
+            {' ',' ',' ',' '},
+            {' ',' ',' ',' '}
+        };
+        memcpy(shape, tmp, sizeof(shape));
+    }
+    void rotate() override {
+        char tmp[4][4];
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                tmp[j][3 - i] = shape[i][j];
+        memcpy(shape, tmp, sizeof(shape));
+    }
+};
+
+class ZPiece : public Piece {
+public:
+    ZPiece() {
+        char tmp[4][4] = {
+            {'Z','Z',' ',' '},
+            {' ','Z','Z',' '},
+            {' ',' ',' ',' '},
+            {' ',' ',' ',' '}
+        };
+        memcpy(shape, tmp, sizeof(shape));
+    }
+    void rotate() override {
+        char tmp[4][4];
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                tmp[j][3 - i] = shape[i][j];
+        memcpy(shape, tmp, sizeof(shape));
+    }
+};
+
+Piece* currentPiece;
 int x = 5, y = 0;
 
 void gotoxy(int x, int y) {
@@ -115,7 +195,6 @@ void draw() {
 }
 
 void boardDelBlock() {
-    if (!currentPiece) return;
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
             if (currentPiece->get(i, j) != ' ')
@@ -123,7 +202,6 @@ void boardDelBlock() {
 }
 
 void block2Board() {
-    if (!currentPiece) return;
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
             if (currentPiece->get(i, j) != ' ')
@@ -154,27 +232,23 @@ bool canRotate() {
     return true;
 }
 
-void removeLine() {
-    for (int i = H - 2; i > 0; i--) {
-        bool full = true;
-        for (int j = 1; j < W - 1; j++)
-            if (board[i][j] == ' ') { full = false; break; }
-
-        if (full) {
-            for (int ii = i; ii > 0; ii--)
-                for (int j = 1; j < W - 1; j++)
-                    board[ii][j] = board[ii - 1][j];
-            i++;
-        }
-    }
+void newPiece() {
+    int r = rand() % 7;
+    if (r == 0) currentPiece = new IPiece();
+    if (r == 1) currentPiece = new OPiece();
+    if (r == 2) currentPiece = new TPiece();
+    if (r == 3) currentPiece = new LPiece();
+    if (r == 4) currentPiece = new JPiece();
+    if (r == 5) currentPiece = new SPiece();
+    if (r == 6) currentPiece = new ZPiece();
+    x = 5; y = 0;
 }
 
 int main() {
     srand(time(0));
     system("cls");
     initBoard();
-
-    currentPiece = new TPiece();
+    newPiece();
 
     while (true) {
         boardDelBlock();
@@ -198,10 +272,8 @@ int main() {
             y++;
         else {
             block2Board();
-            removeLine();
             delete currentPiece;
-            currentPiece = new TPiece();
-            x = 5; y = 0;
+            newPiece();
         }
 
         block2Board();
