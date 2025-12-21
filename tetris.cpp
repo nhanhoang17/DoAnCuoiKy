@@ -15,7 +15,7 @@ class Piece {
 protected:
     char shape[4][4];
 public:
-    virtual void rotate() = 0;   
+    virtual void rotate() = 0;
     char get(int i, int j) const {
         return shape[i][j];
     }
@@ -81,9 +81,9 @@ class LPiece : public Piece {
 public:
     LPiece() {
         char tmp[4][4] = {
-            {'L',' ',' ',' '},
-            {'L',' ',' ',' '},
-            {'L','L',' ',' '},
+            {' ',' ','L',' '},
+            {'L','L','L',' '},
+            {' ',' ',' ',' '},
             {' ',' ',' ',' '}
         };
         memcpy(shape, tmp, sizeof(shape));
@@ -101,9 +101,9 @@ class JPiece : public Piece {
 public:
     JPiece() {
         char tmp[4][4] = {
-            {' ',' ','J',' '},
-            {' ',' ','J',' '},
-            {' ','J','J',' '},
+            {'J',' ',' ',' '},
+            {'J','J','J',' '},
+            {' ',' ',' ',' '},
             {' ',' ',' ',' '}
         };
         memcpy(shape, tmp, sizeof(shape));
@@ -157,9 +157,9 @@ public:
     }
 };
 
-
 Piece* currentPiece = NULL;
 int x = 5, y = 0;
+
 
 void gotoxy(int x, int y) {
     COORD c;
@@ -242,8 +242,6 @@ int main() {
     srand(time(0));
     system("cls");
     initBoard();
-
-    // Khởi tạo quân cờ đầu tiên bằng Class con cụ thể
     currentPiece = new IPiece(); 
 
     while (true) {
@@ -255,7 +253,8 @@ int main() {
             if (c == 's' && canMove(0, 1)) y++;
             if (c == 'w') {
                 currentPiece->rotate();
-                if (!canMove(0, 0))
+                if (!canMove(0, 0)) {
+                }
             }
             if (c == 'q') break;
         }
@@ -266,6 +265,7 @@ int main() {
             removeLine();
             delete currentPiece;
             currentPiece = new TPiece(); 
+            
             x = 5; 
             y = 0;
             if (!canMove(0, 0)) break;
