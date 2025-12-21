@@ -1,21 +1,24 @@
 #include <iostream>
-#include <windows.h>
 #include <conio.h>
+#include <windows.h>
 #include <ctime>
 
 using namespace std;
 
-const int H = 20;
-const int W = 12;
+#define H 20
+#define W 15
 int speed = 200;
 char board[H][W] = {};
+
 
 class Piece {
 protected:
     char shape[4][4];
 public:
-    virtual void rotate() = 0; 
-    char get(int i, int j) const { return shape[i][j]; }
+    virtual void rotate() = 0;   
+    char get(int i, int j) const {
+        return shape[i][j];
+    }
     virtual ~Piece() {}
 };
 
@@ -50,7 +53,8 @@ public:
         };
         memcpy(shape, tmp, sizeof(shape));
     }
-    void rotate() override {} 
+    void rotate() override { 
+    }
 };
 
 class TPiece : public Piece {
@@ -77,9 +81,9 @@ class LPiece : public Piece {
 public:
     LPiece() {
         char tmp[4][4] = {
-            {' ',' ','L',' '},
-            {'L','L','L',' '},
-            {' ',' ',' ',' '},
+            {'L',' ',' ',' '},
+            {'L',' ',' ',' '},
+            {'L','L',' ',' '},
             {' ',' ',' ',' '}
         };
         memcpy(shape, tmp, sizeof(shape));
@@ -97,9 +101,9 @@ class JPiece : public Piece {
 public:
     JPiece() {
         char tmp[4][4] = {
-            {'J',' ',' ',' '},
-            {'J','J','J',' '},
-            {' ',' ',' ',' '},
+            {' ',' ','J',' '},
+            {' ',' ','J',' '},
+            {' ','J','J',' '},
             {' ',' ',' ',' '}
         };
         memcpy(shape, tmp, sizeof(shape));
@@ -153,105 +157,118 @@ public:
     }
 };
 
+
+Piece* currentPiece = NULL;
 int x = 5, y = 0;
-Piece* currentPiece = nullptr;
 
 void gotoxy(int x, int y) {
-    COORD c = { (SHORT)x, (SHORT)y };
+    COORD c;
+    c.X = (SHORT)x;
+    c.Y = (SHORT)y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
 
-void initBoard() {
-    for (int i = 0; i < H; i++) {
-        for (int j = 0; j < W; j++) {
-            if (j == 0 || j == W - 1 || i == H - 1) board[i][j] = '#';
-            else board[i][j] = ' ';
-        }
-    }
-}
-
 void boardDelBlock() {
+    if (currentPiece == NULL) return;
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
-            if (currentPiece->get(i, j) != ' ' && y + i < H)
+            if (currentPiece->get(i, j) != ' ')
                 board[y + i][x + j] = ' ';
 }
 
 void block2Board() {
+    if (currentPiece == NULL) return;
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
             if (currentPiece->get(i, j) != ' ')
                 board[y + i][x + j] = currentPiece->get(i, j);
 }
 
+void initBoard() {
+    for (int i = 0; i < H; i++)
+        for (int j = 0; j < W; j++)
+            if ((i == H - 1) || (j == 0) || (j == W - 1)) 
+                board[i][j] = '#';
+            else 
+                board[i][j] = ' ';
+}
+
 void draw() {
     gotoxy(0, 0);
     for (int i = 0; i < H; i++) {
         for (int j = 0; j < W; j++) {
-            if (board[i][j] == ' ') cout << "  ";
-            else if (board[i][j] == '#') cout << "##";
-            else cout << "[]";
+            if (board[i][j] == '#') 
+                cout << (char)178 << (char)178;
+            else if (board[i][j] == ' ') 
+                cout << "  ";
+            else 
+                cout << "[]";
         }
         cout << endl;
     }
 }
 
 bool canMove(int dx, int dy) {
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
+    if (currentPiece == NULL) return false;
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
             if (currentPiece->get(i, j) != ' ') {
                 int tx = x + j + dx;
                 int ty = y + i + dy;
                 if (tx < 1 || tx >= W - 1 || ty >= H - 1) return false;
                 if (board[ty][tx] != ' ') return false;
             }
-        }
-    }
     return true;
 }
 
 void removeLine() {
+    int j;
+    bool removed = false;
     for (int i = H - 2; i > 0; i--) {
-        bool full = true;
-        for (int j = 1; j < W - 1; j++) if (board[i][j] == ' ') full = false;
-        if (full) {
-            for (int k = i; k > 1; k--)
-                for (int j = 1; j < W - 1; j++) board[k][j] = board[k - 1][j];
-            i++; 
-            if (speed > 30) speed -= 20;
+        for (j = 1; j < W - 1; j++)
+            if (board[i][j] == ' ') break;
+        if (j == W - 1) {
+            removed = true;
+            for (int ii = i; ii > 0; ii--)
+                for (int k = 1; k < W - 1; k++)
+                    board[ii][k] = board[ii - 1][k];
+            i++;
         }
     }
+    if (removed && speed > 30) speed -= 10;
 }
 
 int main() {
-    srand((unsigned int)time(0));
-    initBoard();
-    currentPiece = new TPiece(); 
+    srand(time(0));
     system("cls");
+    initBoard();
+
+    // Khởi tạo quân cờ đầu tiên bằng Class con cụ thể
+    currentPiece = new IPiece(); 
+
     while (true) {
         boardDelBlock();
-        if (_kbhit()) {
-            char c = _getch();
+        if (kbhit()) {
+            char c = getch();
             if (c == 'a' && canMove(-1, 0)) x--;
             if (c == 'd' && canMove(1, 0)) x++;
+            if (c == 's' && canMove(0, 1)) y++;
             if (c == 'w') {
                 currentPiece->rotate();
-                if (!canMove(0, 0)) { 
-                    currentPiece->rotate();
-                    currentPiece->rotate();
-                    currentPiece->rotate();
-                }
+                if (!canMove(0, 0))
             }
+            if (c == 'q') break;
         }
         if (canMove(0, 1)) {
             y++;
         } else {
             block2Board();
             removeLine();
-            x = 5; y = 0;
             delete currentPiece;
-            currentPiece = new IPiece(); 
-            if (!canMove(0, 0)) break; 
+            currentPiece = new TPiece(); 
+            x = 5; 
+            y = 0;
+            if (!canMove(0, 0)) break;
         }
         block2Board();
         draw();
