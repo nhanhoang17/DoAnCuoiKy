@@ -2,22 +2,33 @@
 #include <conio.h>
 #include <windows.h>
 #include <ctime>
+
 using namespace std;
+
 #define H 20
 #define W 15
-int speed = 200;
 
-char board[H][W] = {};
+int speed = 200;
+char board[H][W];
+
 class Piece {
 protected:
     char shape[4][4];
 public:
-    virtual void rotate() = 0;   // đa hình
-    char get(int i, int j) const {
-        return shape[i][j];
+    virtual void rotate() = 0;
+    char get(int i, int j) const { return shape[i][j]; }
+
+    void rotateBack() {
+        char tmp[4][4];
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++)
+                tmp[3 - j][i] = shape[i][j];
+        memcpy(shape, tmp, sizeof(shape));
     }
+
     virtual ~Piece() {}
 };
+
 class IPiece : public Piece {
 public:
     IPiece() {
@@ -37,6 +48,7 @@ public:
         memcpy(shape, tmp, sizeof(shape));
     }
 };
+
 class OPiece : public Piece {
 public:
     OPiece() {
@@ -48,9 +60,9 @@ public:
         };
         memcpy(shape, tmp, sizeof(shape));
     }
-    void rotate() override { // O không xoay
-    }
+    void rotate() override {}
 };
+
 class TPiece : public Piece {
 public:
     TPiece() {
@@ -70,6 +82,7 @@ public:
         memcpy(shape, tmp, sizeof(shape));
     }
 };
+
 class LPiece : public Piece {
 public:
     LPiece() {
@@ -171,9 +184,12 @@ void block2Board() {
 void initBoard() {
     for (int i = 0; i < H; i++)
         for (int j = 0; j < W; j++)
-            if ((i == H - 1) || (j == 0) || (j == W - 1)) board[i][j] = '#';
-            else board[i][j] = ' ';
+            if (i == H - 1 || j == 0 || j == W - 1)
+                board[i][j] = '#';
+            else
+                board[i][j] = ' ';
 }
+
 void draw() {
     gotoxy(0, 0);
     for (int i = 0; i < H; i++) {
@@ -224,12 +240,7 @@ void removeLine()
             draw();
             _sleep(200);
         }
-    }
-
-    // Tăng tốc nếu có xóa dòng
-    if (removed)
-    {
-        if (speed > 30) speed -= 20;
+        cout << endl;
     }
 }
 int main()
@@ -237,24 +248,39 @@ int main()
     srand(time(0));
     system("cls");
     initBoard();
-    while (1) {
+    newPiece();
+
+    while (true) {
         boardDelBlock();
+
         if (kbhit()) {
             char c = getch();
             if (c == 'a' && canMove(-1, 0)) x--;
             if (c == 'd' && canMove(1, 0)) x++;
-            if (c == 'x' && canMove(0, 1))  y++;
+            if (c == 's' && canMove(0, 1)) y++;
+
+            if (c == 'w') {
+                currentPiece->rotate();
+                if (!canRotate())
+                    currentPiece->rotateBack();
+            }
+
             if (c == 'q') break;
         }
-        if (canMove(0, 1)) y++;
+
+        if (canMove(0, 1))
+            y++;
         else {
             block2Board();
             removeLine();
             x = 5; y = 0;
         }
+
         block2Board();
         draw();
-        _sleep(speed);
+        Sleep(speed);
     }
+
+    delete currentPiece;
     return 0;
 }
