@@ -409,7 +409,11 @@ int main()
 
             if (!canMove(0,0))
             {
-                 break;
+                 if (showGameOverBox()) {
+                     resetGame();
+                     continue;
+                 }
+                 else break;
             }
         }
         block2Board();
