@@ -346,6 +346,15 @@ bool showGameOverBox()
     int x0 = W * 2 + 1;
     int y0 = 10;
     int width = 24;
+
+    gotoxy(x0, y0);
+    cout << "+------------------------+";
+
+    gotoxy(x0, y0 + 1);
+    cout << "|        GAME OVER       |";
+
+    gotoxy(x0, y0 + 2);
+    cout << "+------------------------+";
 }
 
 int main()
