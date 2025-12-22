@@ -252,6 +252,7 @@ void showTETRIS()
 {
     system("cls");
     int x0 = 10, y0 = 5;
+    char k = (char)178;
 
 }
 
