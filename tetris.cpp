@@ -324,7 +324,11 @@ bool askReplay()
 
 void resetGame()
 {
-
+    score = 0;
+    lines = 0;
+    speed = 200;
+    x = 5;
+    y = 0;
 }
 
 int main()
