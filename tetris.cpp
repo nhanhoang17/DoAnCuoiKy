@@ -343,7 +343,9 @@ void resetGame()
 
 bool showGameOverBox()
 {
-
+    int x0 = W * 2 + 1;
+    int y0 = 10;
+    int width = 24;
 }
 
 int main()
