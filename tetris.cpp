@@ -335,6 +335,9 @@ void resetGame()
 
     delete currentPiece;
     currentPiece = randomPiece();
+
+    system("cls");
+    drawInfoFrame();
 }
 
 int main()
