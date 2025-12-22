@@ -258,6 +258,8 @@ void drawInfo()
     int xInfo = W * 2 + 4;
     gotoxy(xInfo, 2);
     cout << "High Score: " << highScore;
+    gotoxy(xInfo, 4);
+    cout << "Score:      " << score;
 }
 
 int main()
