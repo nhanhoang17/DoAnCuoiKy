@@ -351,7 +351,7 @@ bool showGameOverBox()
     cout << "+------------------------+";
 
     gotoxy(x0, y0 + 1);
-    cout << "|        GAME OVER       |";
+    cout << "|        GAME OVER !!!   |";
 
     gotoxy(x0, y0 + 2);
     cout << "+------------------------+";
