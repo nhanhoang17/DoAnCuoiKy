@@ -250,6 +250,7 @@ Piece* randomPiece() {
 // Thêm hàm showTETRIS để hiển thị "TETRIS" đầu game
 void showTETRIS()
 {
+    system("cls");
 
 }
 
