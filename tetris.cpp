@@ -307,6 +307,9 @@ void drawInfoFrame()
 
 bool askReplay()
 {
+    int xInfo = W * 2 + 4;
+    gotoxy(xInfo, 11);
+    cout << "Game Over!        ";
 
 }
 
