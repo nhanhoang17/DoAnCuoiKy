@@ -262,6 +262,15 @@ void drawInfo()
     cout << "Score:      " << score;
     gotoxy(xInfo, 6);
     cout << "Lines:      " << lines;
+
+     // Tính thời gian đã chơi
+    int t = (int)difftime(time(0), startTime);
+    int min = t / 60;
+    int sec = t % 60;
+
+    gotoxy(xInfo, 8);
+    cout << "Time:       " << min << ":" << (sec < 10 ? "0" : "") << sec;
+
 }
 
 int main()
