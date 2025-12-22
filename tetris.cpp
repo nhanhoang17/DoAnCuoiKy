@@ -305,6 +305,11 @@ void drawInfoFrame()
 
 }
 
+bool askReplay()
+{
+
+}
+
 int main()
 {
     srand(time(0));
