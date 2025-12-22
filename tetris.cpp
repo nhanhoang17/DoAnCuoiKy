@@ -345,6 +345,10 @@ void showTETRIS()
     gotoxy(x0, y0 + 1); cout << k << k;
     gotoxy(x0 + 6*2, y0 + 3); cout << k << k;
 
+    gotoxy(20, y0 + 7);
+    cout << "Press any key to start...";
+    getch();
+
 }
 
 int main()
