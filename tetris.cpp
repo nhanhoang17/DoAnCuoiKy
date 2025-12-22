@@ -276,6 +276,10 @@ void drawInfo()
 // Hàm vẽ khung bao quanh bảng thông tin
 void drawInfoFrame()
 {
+    int x = W * 2 + 2;
+    int y = 1;
+    int width = 22;
+    int height = 12;
 
 }
 
