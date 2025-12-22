@@ -314,6 +314,11 @@ bool askReplay()
     gotoxy(xInfo, 13);
     cout << "Play again? (Y/N) ";
 
+    char c;
+    do {
+        c = toupper(getch());
+    } while (c != 'Y' && c != 'N');
+
 }
 
 int main()
