@@ -174,6 +174,13 @@ void initBoard() {
             if ((i == H - 1) || (j == 0) || (j == W - 1)) board[i][j] = '#';
             else board[i][j] = ' ';
 }
+
+// Hàm setColor dùng để thay đổi màu của khối
+void setColor(int color)
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
 void draw() {
     gotoxy(0, 0);
     for (int i = 0; i < H; i++) {
