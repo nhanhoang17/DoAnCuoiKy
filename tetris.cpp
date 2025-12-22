@@ -186,7 +186,7 @@ void draw() {
                 cout << "  ";
             }
             else {
-                cout << "[]";
+                cout << (char)176 << (char)176;
             }
         }
     }
@@ -272,7 +272,7 @@ int main()
             }
             if (c == 'q') break;
         }
-        
+
         if (canMove(0, 1)) y++;
         else {
             block2Board();
