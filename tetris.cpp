@@ -329,6 +329,11 @@ void resetGame()
     speed = 200;
     x = 5;
     y = 0;
+
+    initBoard();
+    startTime = time(0);
+
+
 }
 
 int main()
