@@ -278,6 +278,7 @@ int main()
     srand(time(0));
     system("cls");
     initBoard();
+    startTime = time(0);
 
     currentPiece = randomPiece();
 
