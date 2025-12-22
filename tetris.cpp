@@ -256,6 +256,8 @@ Piece* randomPiece() {
 void drawInfo()
 {
     int xInfo = W * 2 + 4;
+    gotoxy(xInfo, 2);
+    cout << "High Score: " << highScore;
 }
 
 int main()
