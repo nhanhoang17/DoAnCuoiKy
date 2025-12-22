@@ -279,7 +279,7 @@ void drawInfoFrame()
     int x = W * 2 + 2;
     int y = 1;
     int width = 22;
-    int height = 12;
+    int height = 8;
 
     // góc
     gotoxy(x, y);               cout << (char)218;
