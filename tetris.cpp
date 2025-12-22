@@ -379,7 +379,11 @@ int main()
 
             x = 5; y = 0;
 
-            if (!canMove(0,0)) break;
+            if (!canMove(0,0))
+            {
+                drawInfo();
+                break;
+            }
         }
         block2Board();
         draw();
