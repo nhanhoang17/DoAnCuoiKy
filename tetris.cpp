@@ -287,6 +287,31 @@ void showTETRIS()
         cout << k << k;
     }
 
+    // R
+    x0 += 9 * 2;
+    for (int i = 0; i < 5; i++) {
+        gotoxy(x0, y0 + i);
+        cout << k << k;
+    }
+
+    for (int j = 0; j < 4; j++) {
+        gotoxy(x0 + (j + 1) * 2, y0);
+        cout << k << k;
+    }
+
+    for (int j = 0; j < 4; j++) {
+        gotoxy(x0 + (j + 1) * 2, y0 + 2);
+        cout << k << k;
+    }
+
+    gotoxy(x0 + 4 * 2, y0 + 1);
+    cout << k << k;
+
+    gotoxy(x0 + 2 * 2, y0 + 3);
+    cout << "  " << k << k;
+    gotoxy(x0 + 3 * 2, y0 + 4);
+    cout << "  " << k << k;
+
 }
 
 int main()
