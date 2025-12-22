@@ -305,23 +305,6 @@ void drawInfoFrame()
 
 }
 
-bool askReplay()
-{
-    int xInfo = W * 2 + 4;
-    gotoxy(xInfo, 11);
-    cout << "Game Over!        ";
-
-    gotoxy(xInfo, 13);
-    cout << "Play again? (Y/N) ";
-
-    char c;
-    do {
-        c = toupper(getch());
-    } while (c != 'Y' && c != 'N');
-
-    if (c == 'Y') return 1;
-    return 0;
-}
 
 void resetGame()
 {
