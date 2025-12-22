@@ -220,6 +220,7 @@ void removeLine()
         if (j == W-1)
         {
             removed = true;
+            lines++;
 
             for (int ii = i; ii >0 ; ii-- )
                 for (int j = 0; j < W-1 ; j++ )
