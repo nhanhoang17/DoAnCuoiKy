@@ -6,6 +6,11 @@ using namespace std;
 #define H 20
 #define W 15
 int speed = 200;
+int score = 0;
+int highScore = 0;
+int lines = 0;
+time_t startTime;
+
 
 char board[H][W] = {};
 class Piece {
@@ -272,7 +277,7 @@ int main()
             }
             if (c == 'q') break;
         }
-        
+
         if (canMove(0, 1)) y++;
         else {
             block2Board();
