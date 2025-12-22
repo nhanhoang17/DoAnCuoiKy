@@ -354,6 +354,7 @@ void showTETRIS()
 int main()
 {
     srand(time(0));
+    showTETRIS();
     system("cls");
     initBoard();
 
