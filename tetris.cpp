@@ -181,6 +181,14 @@ void setColor(int color)
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
+// Hàm getBlockColor dùng để set màu cho từng dạng khối
+int getBlockColor(char c)
+{
+    switch (c)
+    {
+
+    }
+}
 void draw() {
     gotoxy(0, 0);
     for (int i = 0; i < H; i++) {
