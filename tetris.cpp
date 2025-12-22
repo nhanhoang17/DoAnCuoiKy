@@ -273,6 +273,12 @@ void drawInfo()
 
 }
 
+// Hàm vẽ khung bao quanh bảng thông tin
+void drawInfoFrame()
+{
+
+}
+
 int main()
 {
     srand(time(0));
