@@ -370,6 +370,12 @@ bool showGameOverBox()
 
     gotoxy(x0, y0 + 5);
     cout << "+------------------------+";
+
+    gotoxy(x0, y0 + 6);
+    cout << "| Play again? (Y/N)      |";
+
+    gotoxy(x0, y0 + 7);
+    cout << "+------------------------+";
 }
 
 int main()
