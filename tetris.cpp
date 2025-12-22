@@ -287,6 +287,12 @@ void drawInfoFrame()
     gotoxy(x, y + height);      cout << (char)192;
     gotoxy(x + width, y + height); cout << (char)217;
 
+    // ngang
+    for (int i = 1; i < width; i++) {
+        gotoxy(x + i, y);          cout << (char)196;
+        gotoxy(x + i, y + height); cout << (char)196;
+    }
+
 }
 
 int main()
