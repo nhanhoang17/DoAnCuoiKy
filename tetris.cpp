@@ -341,6 +341,11 @@ void resetGame()
     drawInfoFrame();
 }
 
+bool showGameOverBox()
+{
+
+}
+
 int main()
 {
     srand(time(0));
@@ -381,8 +386,7 @@ int main()
 
             if (!canMove(0,0))
             {
-                drawInfo();
-                break;
+                 break;
             }
         }
         block2Board();
