@@ -326,39 +326,37 @@ void resetGame()
 
 bool showGameOverBox()
 {
-    int x0 = W * 2 + 1;
-    int y0 = 10;
-    int width = 24;
+    int x = W * 2 + 2;
+    int y = 10;
+    int width = 26;
+    int height = 8;
 
-    gotoxy(x0, y0);
-    cout << "+------------------------+";
+    // Góc
+    gotoxy(x, y);
+    cout << (char)218;
+    gotoxy(x + width, y);
+    cout << (char)191;
+    gotoxy(x, y + height);
+    cout << (char)192;
+    gotoxy(x + width, y + height);
+    cout << (char)217;
 
-    gotoxy(x0, y0 + 1);
-    cout << "|        GAME OVER !!!   |";
+    // Ngang
+    for (int i = 1; i < width; i++) {
+        gotoxy(x + i, y);
+        cout << (char)196;
+        gotoxy(x + i, y + height);
+        cout << (char)196;
+    }
 
-    gotoxy(x0, y0 + 2);
-    cout << "+------------------------+";
+    // Dọc
+    for (int i = 1; i < height; i++) {
+        gotoxy(x, y + i);
+        cout << (char)179;
+        gotoxy(x + width, y + i);
+        cout << (char)179;
+    }
 
-    gotoxy(x0, y0 + 3);
-    cout << "| Your Score: ";
-    cout << score;
-    gotoxy(x0 + width - 1, y0 + 3);
-    cout << "|";
-
-    gotoxy(x0, y0 + 4);
-    cout << "| High Score: ";
-    cout << highScore;
-    gotoxy(x0 + width - 1, y0 + 4);
-    cout << "|";
-
-    gotoxy(x0, y0 + 5);
-    cout << "+------------------------+";
-
-    gotoxy(x0, y0 + 6);
-    cout << "| Play again? (Y/N)      |";
-
-    gotoxy(x0, y0 + 7);
-    cout << "+------------------------+";
 
     char c;
     do {
@@ -409,6 +407,7 @@ int main()
 
             if (!canMove(0,0))
             {
+                 system("cls");
                  if (showGameOverBox()) {
                      resetGame();
                      continue;
