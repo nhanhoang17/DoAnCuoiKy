@@ -333,7 +333,8 @@ void resetGame()
     initBoard();
     startTime = time(0);
 
-
+    delete currentPiece;
+    currentPiece = randomPiece();
 }
 
 int main()
