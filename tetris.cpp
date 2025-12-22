@@ -236,6 +236,8 @@ void removeLine()
     // Tăng tốc nếu có xóa dòng
     if (removed)
     {
+        if (score > highScore)
+            highScore = score;
         if (speed > 30) speed -= 20;
     }
 }
