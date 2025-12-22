@@ -359,6 +359,14 @@ bool showGameOverBox()
 
     gotoxy(x0, y0 + 7);
     cout << "+------------------------+";
+
+    char c;
+    do {
+        c = toupper(getch());
+    } while (c != 'Y' && c != 'N');
+
+    if (c == 'Y') return true;
+    return false;
 }
 
 int main()
