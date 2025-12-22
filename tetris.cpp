@@ -247,6 +247,12 @@ Piece* randomPiece() {
     return nullptr;
 }
 
+// Thêm hàm showTETRIS để hiển thị "TETRIS" đầu game
+void showTETRIS()
+{
+
+}
+
 int main()
 {
     srand(time(0));
@@ -272,7 +278,7 @@ int main()
             }
             if (c == 'q') break;
         }
-        
+
         if (canMove(0, 1)) y++;
         else {
             block2Board();
