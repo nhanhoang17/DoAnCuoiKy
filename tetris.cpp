@@ -222,7 +222,7 @@ void removeLine()
 
             i++;
             draw();
-            _sleep(200);
+            Sleep(200);
         }
     }
 
@@ -287,7 +287,7 @@ int main()
         }
         block2Board();
         draw();
-        _sleep(speed);
+        Sleep(speed);
     }
 
     delete currentPiece;
