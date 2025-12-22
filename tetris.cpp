@@ -320,6 +320,7 @@ bool askReplay()
     } while (c != 'Y' && c != 'N');
 
     if (c == 'Y') return 1;
+    return 0;
 }
 
 void resetGame()
