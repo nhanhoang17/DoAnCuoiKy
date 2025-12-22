@@ -189,7 +189,7 @@ int getBlockColor(char c)
         case 'I': return 11;
         case 'O': return 14;
         case 'T': return 13;
-
+        case 'S': return 10;
     }
 }
 void draw() {
