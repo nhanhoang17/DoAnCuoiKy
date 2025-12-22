@@ -276,6 +276,17 @@ void showTETRIS()
             cout << k << k;
         }
 
+    // T
+    x0 += 6*2;
+    for (int i = 0; i < 7; i++) {
+        gotoxy(x0 + i*2, y0);
+        cout << k << k;
+    }
+    for (int i = 1; i < 5; i++) {
+        gotoxy(x0 + 3*2, y0 + i);
+        cout << k << k;
+    }
+
 }
 
 int main()
