@@ -311,6 +311,9 @@ bool askReplay()
     gotoxy(xInfo, 11);
     cout << "Game Over!        ";
 
+    gotoxy(xInfo, 13);
+    cout << "Play again? (Y/N) ";
+
 }
 
 int main()
