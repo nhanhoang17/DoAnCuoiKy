@@ -221,6 +221,7 @@ void removeLine()
         {
             removed = true;
             lines++;
+            score += 100;
 
             for (int ii = i; ii >0 ; ii-- )
                 for (int j = 0; j < W-1 ; j++ )
