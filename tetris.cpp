@@ -260,6 +260,8 @@ void drawInfo()
     cout << "High Score: " << highScore;
     gotoxy(xInfo, 4);
     cout << "Score:      " << score;
+    gotoxy(xInfo, 6);
+    cout << "Lines:      " << lines;
 }
 
 int main()
