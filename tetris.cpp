@@ -357,6 +357,20 @@ bool showGameOverBox()
         cout << (char)179;
     }
 
+    // Nội dung
+    gotoxy(x + 7, y + 1);
+    cout << "GAME OVER";
+
+    gotoxy(x + 2, y + 3);
+    cout << "Your Score : ";
+    cout << score;
+
+    gotoxy(x + 2, y + 4);
+    cout << "High Score : ";
+    cout << highScore;
+
+    gotoxy(x + 2, y + 6);
+    cout << "Play again? (Y/N)";
 
     char c;
     do {
