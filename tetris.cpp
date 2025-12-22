@@ -319,6 +319,8 @@ bool askReplay()
         c = toupper(getch());
     } while (c != 'Y' && c != 'N');
 
+    if (c == 'Y') return 1;
+
 }
 
 int main()
