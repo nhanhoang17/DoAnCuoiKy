@@ -210,6 +210,7 @@ void draw() {
             else {
                 setColor(getBlockColor(board[i][j]));
                 cout << (char)176 << (char)176;
+                setColor(7);
 
             }
         }
