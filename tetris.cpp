@@ -252,6 +252,12 @@ Piece* randomPiece() {
     return nullptr;
 }
 
+// Hàm drawInfo() để hiển thị bảng thông tin.
+void drawInfo()
+{
+    int xInfo = W * 2 + 4;
+}
+
 int main()
 {
     srand(time(0));
