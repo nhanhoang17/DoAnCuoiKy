@@ -355,6 +355,21 @@ bool showGameOverBox()
 
     gotoxy(x0, y0 + 2);
     cout << "+------------------------+";
+
+    gotoxy(x0, y0 + 3);
+    cout << "| Your Score: ";
+    cout << score;
+    gotoxy(x0 + width - 1, y0 + 3);
+    cout << "|";
+
+    gotoxy(x0, y0 + 4);
+    cout << "| High Score: ";
+    cout << highScore;
+    gotoxy(x0 + width - 1, y0 + 4);
+    cout << "|";
+
+    gotoxy(x0, y0 + 5);
+    cout << "+------------------------+";
 }
 
 int main()
