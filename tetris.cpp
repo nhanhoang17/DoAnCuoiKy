@@ -186,7 +186,7 @@ int getBlockColor(char c)
 {
     switch (c)
     {
-
+        case 'I': return 11;
     }
 }
 void draw() {
