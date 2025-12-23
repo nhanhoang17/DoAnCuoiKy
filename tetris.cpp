@@ -404,11 +404,115 @@ bool showGameOverBox()
 
     if (c == 'Y') return true;
     return false;
+
+// Thêm hàm showTETRIS để hiển thị "TETRIS" đầu game
+void showTETRIS()
+{
+    system("cls");
+    int x0 = 10, y0 = 5;
+    char k = (char)178;
+
+    // T
+    for (int i = 0; i < 7; i++) {
+        gotoxy(x0 + i*2, y0);
+        cout << k << k;
+    }
+    for (int i = 1; i < 5; i++) {
+        gotoxy(x0 + 3*2, y0 + i);
+        cout << k << k;
+    }
+
+    // E
+    x0 += 9*2;
+    for (int i = 0; i < 5; i++) {
+        gotoxy(x0, y0 + i);
+        cout << k << k;
+    }
+    for (int i : {0, 2, 4})
+        for (int j = 0; j < 4; j++) {
+            gotoxy(x0 + j*2, y0 + i);
+            cout << k << k;
+        }
+
+    // T
+    x0 += 6*2;
+    for (int i = 0; i < 7; i++) {
+        gotoxy(x0 + i*2, y0);
+        cout << k << k;
+    }
+    for (int i = 1; i < 5; i++) {
+        gotoxy(x0 + 3*2, y0 + i);
+        cout << k << k;
+    }
+
+    // R
+    x0 += 9 * 2;
+    for (int i = 0; i < 5; i++) {
+        gotoxy(x0, y0 + i);
+        cout << k << k;
+    }
+
+    for (int j = 0; j < 4; j++) {
+        gotoxy(x0 + (j + 1) * 2, y0);
+        cout << k << k;
+    }
+
+    for (int j = 0; j < 4; j++) {
+        gotoxy(x0 + (j + 1) * 2, y0 + 2);
+        cout << k << k;
+    }
+
+    gotoxy(x0 + 4 * 2, y0 + 1);
+    cout << k << k;
+
+    gotoxy(x0 + 2 * 2, y0 + 3);
+    cout << "  " << k << k;
+    gotoxy(x0 + 3 * 2, y0 + 4);
+    cout << "  " << k << k;
+
+    // I
+    x0 += 7*2;
+    for (int i = 0; i < 5; i++) {
+        gotoxy(x0, y0 + i);
+        cout << k << k;
+    }
+
+    // S
+    x0 += 7 * 1;
+    for (int j = 0; j < 4; j++) {
+        gotoxy(x0 + j * 2, y0);
+        cout << k << k;
+    }
+
+    gotoxy(x0, y0 + 1);
+    cout << k << k;
+
+    for (int j = 0; j < 4; j++) {
+        gotoxy(x0 + j * 2, y0 + 2);
+        cout << k << k;
+    }
+
+    gotoxy(x0 + 3 * 2, y0 + 3);
+    cout << k << k;
+
+    for (int j = 0; j < 4; j++) {
+        gotoxy(x0 + j * 2, y0 + 4);
+        cout << k << k;
+    }
+
+    gotoxy(x0, y0 + 1); cout << k << k;
+    gotoxy(x0 + 6*2, y0 + 3); cout << k << k;
+
+    gotoxy(20, y0 + 7);
+    cout << "Press any key to start...";
+    getch();
+
 }
 
 int main()
 {
     srand(time(0));
+    showTETRIS();
     system("cls");
     initBoard();
     drawInfoFrame();
