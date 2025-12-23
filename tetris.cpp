@@ -328,6 +328,7 @@ void drawInfoFrame()
         gotoxy(x + width, y + i);  cout << (char)179;
     }
 
+
 }
 
 
@@ -404,6 +405,8 @@ bool showGameOverBox()
 
     if (c == 'Y') return true;
     return false;
+}
+
 
 // Thêm hàm showTETRIS để hiển thị "TETRIS" đầu game
 void showTETRIS()
