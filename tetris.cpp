@@ -6,6 +6,11 @@ using namespace std;
 #define H 20
 #define W 15
 int speed = 200;
+int score = 0;
+int highScore = 0;
+int lines = 0;
+time_t startTime;
+
 
 char board[H][W] = {};
 class Piece {
@@ -240,6 +245,8 @@ void removeLine()
         if (j == W-1)
         {
             removed = true;
+            lines++;
+            score += 100;
 
             for (int ii = i; ii >0 ; ii-- )
                 for (int j = 0; j < W-1 ; j++ )
@@ -254,6 +261,8 @@ void removeLine()
     // Tăng tốc nếu có xóa dòng
     if (removed)
     {
+        if (score > highScore)
+            highScore = score;
         if (speed > 30) speed -= 20;
     }
 }
@@ -271,6 +280,130 @@ Piece* randomPiece() {
     }
     return nullptr;
 }
+
+// Hàm drawInfo() để hiển thị bảng thông tin.
+void drawInfo()
+{
+    int xInfo = W * 2 + 4;
+    gotoxy(xInfo, 2);
+    cout << "High Score: " << highScore;
+    gotoxy(xInfo, 4);
+    cout << "Score:      " << score;
+    gotoxy(xInfo, 6);
+    cout << "Lines:      " << lines;
+
+     // Tính thời gian đã chơi
+    int t = (int)difftime(time(0), startTime);
+    int min = t / 60;
+    int sec = t % 60;
+
+    gotoxy(xInfo, 8);
+    cout << "Time:       " << min << ":" << (sec < 10 ? "0" : "") << sec;
+
+}
+
+// Hàm vẽ khung bao quanh bảng thông tin
+void drawInfoFrame()
+{
+    int x = W * 2 + 2;
+    int y = 1;
+    int width = 22;
+    int height = 8;
+
+    // góc
+    gotoxy(x, y);               cout << (char)218;
+    gotoxy(x + width, y);       cout << (char)191;
+    gotoxy(x, y + height);      cout << (char)192;
+    gotoxy(x + width, y + height); cout << (char)217;
+
+    // ngang
+    for (int i = 1; i < width; i++) {
+        gotoxy(x + i, y);          cout << (char)196;
+        gotoxy(x + i, y + height); cout << (char)196;
+    }
+
+    // dọc
+    for (int i = 1; i < height; i++) {
+        gotoxy(x, y + i);          cout << (char)179;
+        gotoxy(x + width, y + i);  cout << (char)179;
+    }
+
+}
+
+
+void resetGame()
+{
+    score = 0;
+    lines = 0;
+    speed = 200;
+    x = 5;
+    y = 0;
+
+    initBoard();
+    startTime = time(0);
+
+    delete currentPiece;
+    currentPiece = randomPiece();
+
+    system("cls");
+    drawInfoFrame();
+}
+
+bool showGameOverBox()
+{
+    int x = W * 2 + 2;
+    int y = 10;
+    int width = 26;
+    int height = 8;
+
+    // Góc
+    gotoxy(x, y);
+    cout << (char)218;
+    gotoxy(x + width, y);
+    cout << (char)191;
+    gotoxy(x, y + height);
+    cout << (char)192;
+    gotoxy(x + width, y + height);
+    cout << (char)217;
+
+    // Ngang
+    for (int i = 1; i < width; i++) {
+        gotoxy(x + i, y);
+        cout << (char)196;
+        gotoxy(x + i, y + height);
+        cout << (char)196;
+    }
+
+    // Dọc
+    for (int i = 1; i < height; i++) {
+        gotoxy(x, y + i);
+        cout << (char)179;
+        gotoxy(x + width, y + i);
+        cout << (char)179;
+    }
+
+    // Nội dung
+    gotoxy(x + 7, y + 1);
+    cout << "GAME OVER";
+
+    gotoxy(x + 2, y + 3);
+    cout << "Your Score : ";
+    cout << score;
+
+    gotoxy(x + 2, y + 4);
+    cout << "High Score : ";
+    cout << highScore;
+
+    gotoxy(x + 2, y + 6);
+    cout << "Play again? (Y/N)";
+
+    char c;
+    do {
+        c = toupper(getch());
+    } while (c != 'Y' && c != 'N');
+
+    if (c == 'Y') return true;
+    return false;
 
 // Thêm hàm showTETRIS để hiển thị "TETRIS" đầu game
 void showTETRIS()
@@ -382,6 +515,8 @@ int main()
     showTETRIS();
     system("cls");
     initBoard();
+    drawInfoFrame();
+    startTime = time(0);
 
     currentPiece = randomPiece();
 
@@ -413,10 +548,19 @@ int main()
 
             x = 5; y = 0;
 
-            if (!canMove(0,0)) break;
+            if (!canMove(0,0))
+            {
+                 system("cls");
+                 if (showGameOverBox()) {
+                     resetGame();
+                     continue;
+                 }
+                 else break;
+            }
         }
         block2Board();
         draw();
+        drawInfo();
         Sleep(speed);
     }
 
