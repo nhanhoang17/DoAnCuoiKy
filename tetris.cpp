@@ -174,6 +174,28 @@ void initBoard() {
             if ((i == H - 1) || (j == 0) || (j == W - 1)) board[i][j] = '#';
             else board[i][j] = ' ';
 }
+
+// Hàm setColor dùng để thay đổi màu của khối
+void setColor(int color)
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+// Hàm getBlockColor dùng để set màu cho từng dạng khối
+int getBlockColor(char c)
+{
+    switch (c)
+    {
+        case 'I': return 11;
+        case 'O': return 14;
+        case 'T': return 13;
+        case 'S': return 10;
+        case 'Z': return 12;
+        case 'J': return 9;
+        case 'L': return 6;
+        default:  return 7;
+    }
+}
 void draw() {
     gotoxy(0, 0);
     for (int i = 0; i < H; i++) {
@@ -186,7 +208,10 @@ void draw() {
                 cout << "  ";
             }
             else {
-                cout << "[]";
+                setColor(getBlockColor(board[i][j]));
+                cout << (char)176 << (char)176;
+                setColor(7);
+
             }
         }
     }
@@ -272,7 +297,7 @@ int main()
             }
             if (c == 'q') break;
         }
-        
+
         if (canMove(0, 1)) y++;
         else {
             block2Board();
